@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remédiation – Pigments magenta et bleu</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:850px;margin:0 auto;padding:20px;line-height:1.5;color:#222}
+h1{color:#7b4b8a}
+h2{color:#555;margin-top:26px}
+.card{border:1px solid #ddd;border-radius:12px;padding:18px;margin:18px 0}
+input,select,textarea{font:inherit;padding:8px;border:1px solid #aaa;border-radius:6px;max-width:100%}
+button{padding:10px 15px;border:0;border-radius:8px;background:#7b4b8a;color:white;cursor:pointer;margin:8px 6px 0 0}
+.correction{display:none;background:#f3eafa;border-left:5px solid #7b4b8a;padding:12px;margin-top:12px}
+.note{font-size:.95rem;color:#555}
+</style>
+</head>
+<body>
+<h1>Remédiation – Les pigments colorés</h1>
+<p>Complète les réponses puis clique sur <strong>Afficher la correction</strong>. La fiche ne met pas de faux et ne calcule aucune note.</p>
+
+<div class="card">
+<h2>1. Pigment magenta — couleur primaire (modèle CMJ)</h2>
+<p class="note">Un pigment magenta est un pigment primaire du modèle soustractif cyan-magenta-jaune.</p>
+<p>
+Un pigment magenta diffuse la lumière
+<input id="m1" size="9">
+et la lumière
+<input id="m2" size="9">.
+Il absorbe principalement la lumière
+<input id="m3" size="9">.
+</p>
+<div id="cm" class="correction">
+<strong>Correction :</strong> le pigment magenta diffuse la lumière <strong>rouge</strong> et la lumière <strong>bleue</strong>. Il absorbe principalement la lumière <strong>verte</strong>.
+</div>
+</div>
+
+<div class="card">
+<h2>2. Pigment bleu — autre couleur étudiée</h2>
+<p>
+Un pigment bleu diffuse principalement la lumière
+<input id="b1" size="9">
+et absorbe principalement les lumières
+<input id="b2" size="9"> et
+<input id="b3" size="9">.
+</p>
+<div id="cb" class="correction">
+<strong>Correction :</strong> dans le modèle simplifié, le pigment bleu diffuse principalement la lumière <strong>bleue</strong> et absorbe principalement les lumières <strong>rouge</strong> et <strong>verte</strong>.
+</div>
+</div>
+
+<div class="card">
+<h2>3. Vrai ou faux</h2>
+<p>1. Un pigment magenta éclairé en lumière blanche paraît magenta.</p>
+<select id="v1"><option value="">Choisir</option><option>Vrai</option><option>Faux</option></select>
+
+<p>2. Un pigment magenta absorbe principalement la lumière verte.</p>
+<select id="v2"><option value="">Choisir</option><option>Vrai</option><option>Faux</option></select>
+
+<p>3. Un pigment bleu éclairé uniquement en lumière rouge paraît clair.</p>
+<select id="v3"><option value="">Choisir</option><option>Vrai</option><option>Faux</option></select>
+
+<div id="cv" class="correction">
+<strong>Correction :</strong><br>
+1. Vrai<br>
+2. Vrai<br>
+3. Faux : dans le modèle simplifié, le pigment bleu absorbe la lumière rouge et paraît donc très sombre.
+</div>
+</div>
+
+<div class="card">
+<h2>4. Expliquer</h2>
+<p>Explique la différence entre une lumière colorée et un pigment coloré.</p>
+<textarea id="exp" rows="4" style="width:100%"></textarea>
+<div id="ce" class="correction">
+<strong>Correction possible :</strong> une lumière colorée est émise par une source. Un pigment absorbe certaines lumières et en diffuse d’autres ; la couleur perçue dépend de la lumière éclairant le pigment.
+</div>
+</div>
+
+<button type="button" onclick="afficherCorrections()">Afficher la correction</button>
+<button type="button" onclick="location.reload()">Recommencer</button>
+
+<script>
+function afficherCorrections(){
+  document.querySelectorAll(".correction").forEach(function(bloc){
+    bloc.style.display="block";
+  });
+}
+</script>
+</body>
+</html>
