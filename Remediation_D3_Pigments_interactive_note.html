@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remédiation – Pigment jaune</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:850px;margin:0 auto;padding:20px;line-height:1.5;color:#222}
+h1{color:#7b4b8a} h2{margin-top:28px;color:#555}
+.card{border:1px solid #ddd;border-radius:12px;padding:18px;margin:18px 0}
+input,select,textarea{font:inherit;padding:8px;border:1px solid #aaa;border-radius:6px;max-width:100%}
+button{padding:9px 14px;border:0;border-radius:8px;background:#7b4b8a;color:white;cursor:pointer;margin-top:10px}
+.feedback{margin-top:10px;font-weight:bold}
+.correct{color:green}.wrong{color:#b00020}
+#score{font-size:1.25rem;font-weight:bold;background:#f4eafa;padding:12px;border-radius:10px}
+</style>
+</head>
+<body>
+<h1>Remédiation – Les pigments colorés</h1>
+<p>Complète les réponses puis clique sur <strong>Corriger</strong>. Une note sur 10 sera calculée automatiquement.</p>
+<div id="score">Note : — / 10</div>
+
+<div class="card">
+<h2>1. Compléter les couleurs (3 points)</h2>
+<p>Un pigment jaune diffuse la lumière <input id="a1" size="8"> et la lumière <input id="a2" size="8">. Il absorbe principalement la lumière <input id="a3" size="8">.</p>
+<div id="f1" class="feedback"></div>
+</div>
+
+<div class="card">
+<h2>2. Vrai ou faux (3 points)</h2>
+<p>1. Un pigment jaune éclairé en lumière blanche paraît jaune.</p>
+<select id="b1"><option value="">Choisir</option><option>Vrai</option><option>Faux</option></select>
+<p>2. Un pigment jaune absorbe principalement la lumière bleue.</p>
+<select id="b2"><option value="">Choisir</option><option>Vrai</option><option>Faux</option></select>
+<p>3. Une lumière jaune et un pigment jaune fonctionnent exactement de la même manière.</p>
+<select id="b3"><option value="">Choisir</option><option>Vrai</option><option>Faux</option></select>
+<div id="f2" class="feedback"></div>
+</div>
+
+<div class="card">
+<h2>3. Expliquer (2 points)</h2>
+<p>Explique en une ou deux phrases la différence entre une lumière colorée et un pigment coloré.</p>
+<textarea id="c1" rows="4" style="width:100%"></textarea>
+<div id="f3" class="feedback"></div>
+</div>
+
+<div class="card">
+<h2>4. Réinvestissement (2 points)</h2>
+<p>Dans le modèle simplifié étudié, un pigment jaune éclairé uniquement en lumière bleue paraît-il clair ou très sombre ? Explique.</p>
+<select id="d1"><option value="">Choisir</option><option>Clair</option><option>Très sombre</option></select>
+<textarea id="d2" rows="3" style="width:100%" placeholder="Ton explication"></textarea>
+<div id="f4" class="feedback"></div>
+</div>
+
+<button onclick="corriger()">Corriger et calculer la note</button>
+<button onclick="location.reload()">Recommencer</button>
+
+<script>
+function norm(s){return s.trim().toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"");}
+function corriger(){
+ let points=0;
+ let answers=[["a1","rouge"],["a2","vert"],["a3","bleu"]];
+ let ok=answers.map(([id,rep])=>norm(document.getElementById(id).value)===rep);
+ points+=ok.filter(Boolean).length;
+ document.getElementById("f1").innerHTML=ok.every(Boolean)?"Juste : 3/3":"À revoir : rouge, vert, bleu. ("+ok.filter(Boolean).length+"/3)";
+
+ let vf=[norm(document.getElementById("b1").value)==="vrai",norm(document.getElementById("b2").value)==="vrai",norm(document.getElementById("b3").value)==="faux"];
+ points+=vf.filter(Boolean).length;
+ document.getElementById("f2").innerHTML=vf.every(Boolean)?"Juste : 3/3":"À revoir : Vrai, Vrai, Faux. ("+vf.filter(Boolean).length+"/3)";
+
+ let exp=norm(document.getElementById("c1").value);
+ let expOk=(exp.includes("lumiere")&&(exp.includes("emet")||exp.includes("source")||exp.includes("addition"))&&(exp.includes("absor")||exp.includes("diffus")||exp.includes("pigment")));
+ if(expOk)points++;
+ document.getElementById("f3").innerHTML=expOk?"Réponse acceptable : 1/1":"Réponse à compléter : une lumière colorée est émise par une source ; un pigment absorbe certaines lumières et en diffuse d’autres. (0/1)";
+
+ let dOk=norm(document.getElementById("d1").value)==="tres sombre";
+ let dExp=norm(document.getElementById("d2").value);
+ let dExpOk=dExp.includes("bleu")&&(dExp.includes("absor")||dExp.includes("ne diffuse")||dExp.includes("pas de"));
+ if(dOk)points++;
+ if(dOk&&dExpOk){} 
+ document.getElementById("f4").innerHTML=(dOk&&dExpOk)?"Juste : 2/2":dOk?"Réponse partiellement juste : le pigment paraît très sombre car il absorbe la lumière bleue. (1/2)":"À revoir : très sombre, car le pigment jaune absorbe principalement le bleu. (0/2)";
+ let total=points+(dOk&&dExpOk?1:0);
+ document.getElementById("score").textContent="Note : "+total+" / 10";
+}
+</script>
+</body>
+</html>
